@@ -33,6 +33,19 @@ async function buscarPorId(req, res) {
   }
 }
 
+async function buscarGameId(req, res) {
+  try {
+    const games = await service.buscarGameId(req.params.id);
+    if (!games) {
+      return res.status(404).json({ erro: 'Jogo nao encontrado' });
+    }
+    return res.json(games);
+  } catch (error) {
+    console.error('Erro ao buscar jogo:', error);
+    res.status(500).json({ erro: 'Erro interno do servidor' });
+  }
+}
+
 async function criar(req, res) {
   try {
     const { nome, email } = req.body;
@@ -98,5 +111,6 @@ module.exports = {
   atualizar,
   remover,
   listarGames,
-  criarGame
+  criarGame,
+  buscarGameId
 };

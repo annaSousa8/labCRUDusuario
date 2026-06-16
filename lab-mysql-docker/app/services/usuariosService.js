@@ -19,6 +19,15 @@ async function buscarPorId(id) {
   return rows[0] || null;
 }
 
+async function buscarGameId(id) {
+  const [rows] = await db.query(
+    'SELECT id, team_A_id, team_B_id, HCC_A, HCC_B, first_time_id, second_time_id FROM game WHERE id = ?',
+    [id]
+  );
+
+  return rows[0] || null;
+}
+
 async function criar({ nome, email }) {
   const [result] = await db.query(
     'INSERT INTO usuarios (nome, email) VALUES (?, ?)',
@@ -62,5 +71,6 @@ module.exports = {
   atualizar,
   remover,
   listarGames,
-  criarGame
+  criarGame, 
+  buscarGameId
 };
