@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
-const usuariosRoutes = require('./routes/usuarios');
 const authRoutes = require('./routes/auth');
 const gamesRoutes = require('./routes/games');
 
@@ -23,7 +22,6 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/auth', authRoutes);
-app.use('/usuarios', usuariosRoutes);
 app.use('/games', gamesRoutes);
 
 app.listen(3000, () => {

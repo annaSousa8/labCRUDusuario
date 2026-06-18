@@ -33,7 +33,7 @@ async function handleLogin(event) {
 
     if (resposta.ok) {
       mostrarDashboard();
-      carregarUsuarios();
+      carregarJogos();
     } else {
       const erro = await resposta.json();
       loginMensagem.textContent = erro.erro || 'Falha ao entrar';
@@ -77,23 +77,23 @@ function limparFormulario() {
   team_B_Input.value = '';
 }
 
-async function carregarUsuarios() {
+async function carregarJogos() {
   try {
     const resposta = await fetch(API_URL);
     if (resposta.status === 401) return mostrarLogin();
     
-    const usuarios = await resposta.json();
+    const jogos = await resposta.json();
     tabela.innerHTML = '';
 
-    usuarios.forEach((usuario) => {
+    jogos.forEach((game) => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${usuario.id}</td>
-        <td>${usuario.nome}</td>
-        <td>${usuario.email}</td>
+        <td>${game.id}</td>
+        <td>${game.team_A_id}</td>
+        <td>${game.team_B_id}</td>
         <td>
-          <button class="acao" data-editar="${usuario.id}">Editar</button>
-          <button class="acao btn-excluir" data-excluir="${usuario.id}">Excluir</button>
+          <button class="acao" data-editar="${game.id}">Editar</button>
+          <button class="acao btn-excluir" data-excluir="${game.id}">Excluir</button>
         </td>
       `;
       tabela.appendChild(tr);
@@ -103,7 +103,7 @@ async function carregarUsuarios() {
   }
 }
 
-async function salvarUsuario(event) {
+async function salvarJogo(event) {
   event.preventDefault();
 
   const id = idInput.value;
@@ -130,13 +130,13 @@ async function salvarUsuario(event) {
 
   mostrarMensagem(id ? 'Atualizado com sucesso' : 'Criado com sucesso');
   limparFormulario();
-  carregarUsuarios();
+  carregarJogos();
 }
 
 // --- Event Listeners ---
 
 loginForm.addEventListener('submit', handleLogin);
-usuarioForm.addEventListener('submit', salvarUsuario);
+usuarioForm.addEventListener('submit', salvarJogo);
 
 btnLogout.addEventListener('click', handleLogout);
 cancelarEdicaoBtn.addEventListener('click', () => {
@@ -152,14 +152,14 @@ tabela.addEventListener('click', async (event) => {
     const resposta = await fetch(`${API_URL}/${editarId}`);
     const u = await resposta.json();
     idInput.value = u.id;
-    nomeInput.value = u.nome;
-    emailInput.value = u.email;
+    team_A_Input.value = u.team_A_id;
+    team_B_Input.value = u.team_B_id;
   }
 
   if (excluirId) {
     if (confirm('Deseja excluir?')) {
       await fetch(`${API_URL}/${excluirId}`, { method: 'DELETE' });
-      carregarUsuarios();
+      carregarJogos();
     }
   }
 });
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resp = await fetch(API_URL);
     if (resp.ok) {
         mostrarDashboard();
-        carregarUsuarios();
+        carregarJogos();
     } else {
         mostrarLogin();
     }
