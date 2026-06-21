@@ -6,21 +6,25 @@
     <title>Document</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="global.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <div style="color: var(--foreground);">
-                <span style="color: var(--primary-foreground);">REF </span>BASKET
-            </div>
-            <ul class="menu">
-                <li ><a href="#">Cadastro</a></li>
-                <li ><a href="#">Tempo Real</a></li>
+            <h1>
+                <span style="color: var(--primary);">REF</span>BASKET
+            </h1>
+            <ul>
+                <li class="contorno"><a href="cadastro.html">Cadastro</a></li>
+                <li class="contorno"><a href="#">Tempo Real</a></li>
             </ul>
         </nav>
     </header>
 
-    <div style="text-align: center;">
+    <div style="text-align: center; margin-top: 30px; font-family: 'DM Sans', sans-serif;">
         <div class="logo">
         <svg
             width="60"
@@ -61,10 +65,41 @@
             />
         </svg>
     </div>
-    <h1 style="color: var(--foreground);">
-        <span style="color: var(--primary-foreground);">REF</span>BASKET
+
+    <h1 style="margin-bottom: 10px;">
+        <span style="color: var(--primary);">REF</span>BASKET
     </h1>
     <h2 class="escrita">Sistema de arbitragem para basquete</h2>
+
+    <div class="container">
+        <a href="cadastro.html">
+            <button class="card">
+                <div class="icone">
+                    <i data-lucide="users"></i>
+                </div>
+                <div >
+                    <h2>CADASTROS</h2>
+                    <p>Gerencie jogos, times, jogadores e técnicos. Visualize e edite todos os registros.</p>
+                </div>
+                <div class="acao">Acessar -></div>
+            </button>
+        </a>
+
+        <button class="card destaque">
+            <div class="icone">
+                <i data-lucide="clock"></i>
+            </div>
+            <div>
+                <h2>JOGO EM TEMPO REAL</h2>
+                <p>Controle o placar, tempo, faltas e time-outs durante uma partida ao vivo.</p>
+            </div>
+            <div class="acao"> Acessar -></div>
+        </button> 
     </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

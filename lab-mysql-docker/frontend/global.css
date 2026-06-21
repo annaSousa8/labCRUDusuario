@@ -1,7 +1,11 @@
 :root{
     --muted-foreground: #64748B;
-    --primary-foreground: #F97316;
+    --primary: #F97316;
+    --primary-foreground: #0B0F1A;
     --background: #0B0F1A;
     --foreground: #F1F5F9;
     --border: rgba(255, 255, 255, 0.08);
+    --card: #131929;
+    --card-foreground: #F1F5F9;
+    --black: #000000;
 }
