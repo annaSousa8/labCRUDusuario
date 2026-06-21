@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="cadastro.css">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="inicio">
+                <h1>
+                    <span style="color: var(--primary);">REF</span>BASKET
+                </h1>
+                    <ul>
+                        <li><a href="home.html">&lt; Voltar</a></li>
+                        <li>CADASTROS</li>
+                    </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="contorno ativo"><a href="cadastro.html">CADASTROS</a></li>
+                    <li class="contorno"><a href="#">TEMPO REAL</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="tabs">
+            <button class="tab ativo">JOGOS</button>
+            <button class="tab">TIMES</button>
+            <button class="tab">JOGADORES</button>
+        </div>
+
+        <div class="topo-pagina">
+            <h1>JOGOS</h1>
+            <button class="novo-jogo">+ Novo Jogo</button>
+        </div>
+
+        <div class="tabela-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>CONFRONTO</th>
+                        <th>DATA</th>
+                        <th>LOCAL</th>
+                        <th>STATUS</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        <td>Flamengo Basquete vs Bauru Basket</td>
+                        <td>25/06/2026</td>
+                        <td>Ginasio do Flamengo</td>
+                        <td>
+                            <span class="status agendado">Agendado</span>
+                        </td>
+                        <td>
+                            <div class="acoes">
+                                <i data-lucide="square-pen" class="editar"></i>
+                                <i data-lucide="trash-2" class="excluir"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>  
+    </main>
+
+      
+</body>
+</html>
