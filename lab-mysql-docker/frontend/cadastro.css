@@ -183,3 +183,35 @@ main{
 .contorno:not(.ativo):hover a{
     color: var(--foreground);
 }
+
+.busca{
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.icone-busca{
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted-foreground);
+    width: 14px;
+    height: 14px;
+}
+
+.campo-busca{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    padding-left: 36px;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--foreground);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.campo-busca:focus{
+    outline: none;
+    border-color: var(--primary);
+}
