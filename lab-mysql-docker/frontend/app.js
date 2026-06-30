@@ -1,176 +1,192 @@
 // Configurações
-const API_URL = '/api/games';
-const AUTH_URL = '/api/auth';
+const API_URL = "/api/games";
+const AUTH_URL = "/api/auth";
 
 // Elementos UI
-const loginSection = document.getElementById('login-section');
-const mainContent = document.getElementById('main-content');
-const authHeader = document.getElementById('auth-header');
-const loginForm = document.getElementById('login-form');
-const usuarioForm = document.getElementById('usuario-form');
-const idInput = document.getElementById('usuario-id');
-const team_A_Input = document.getElementById('team_A');
-const team_B_Input = document.getElementById('team_B');
-const tabela = document.getElementById('usuarios-tabela');
-const mensagem = document.getElementById('mensagem');
-const loginMensagem = document.getElementById('login-mensagem');
-const cancelarEdicaoBtn = document.getElementById('cancelar-edicao');
-const btnLogout = document.getElementById('btn-logout');
+// const loginSection = document.getElementById("login-section");
+// const mainContent = document.getElementById("main-content");
+// const authHeader = document.getElementById("auth-header");
+// const loginForm = document.getElementById("login-form");
+// const usuarioForm = document.getElementById("usuario-form");
+// const idInput = document.getElementById("usuario-id");
+// const team_A_Input = document.getElementById("team_A");
+// const team_B_Input = document.getElementById("team_B");
+// const tabela = document.getElementById("usuarios-tabela");
+// const mensagem = document.getElementById("mensagem");
+// const loginMensagem = document.getElementById("login-mensagem");
+// const cancelarEdicaoBtn = document.getElementById("cancelar-edicao");
+// const btnLogout = document.getElementById("btn-logout");
+const btnNovoJogo = document.getElementById("btn-novo-jogo");
+const modal = document.getElementById("modal");
+const btnFechar = document.getElementById("btn-fechar");
 
 // --- Funções de Autenticação ---
 
-async function handleLogin(event) {
-  event.preventDefault();
-  const formData = new FormData(loginForm);
-  const payload = Object.fromEntries(formData);
-
-  try {
-    const resposta = await fetch(`${AUTH_URL}/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (resposta.ok) {
-      mostrarDashboard();
-      carregarJogos();
-    } else {
-      const erro = await resposta.json();
-      loginMensagem.textContent = erro.erro || 'Falha ao entrar';
-      loginMensagem.style.color = '#b42318';
-    }
-  } catch (err) {
-    loginMensagem.textContent = 'Erro de conexão';
-  }
+function abrirModal() {
+  modal.classList.add("ativo");
 }
 
-async function handleLogout() {
-  await fetch(`${AUTH_URL}/logout`, { method: 'POST' });
-  mostrarLogin();
+function fecharModal() {
+  modal.classList.remove("ativo");
 }
 
-function mostrarDashboard() {
-  loginSection.style.display = 'none';
-  mainContent.style.display = 'flex';
-  authHeader.style.display = 'block';
-  loginForm.reset();
-  loginMensagem.textContent = '';
-}
+// async function handleLogin(event) {
+//   event.preventDefault();
+//   const formData = new FormData(loginForm);
+//   const payload = Object.fromEntries(formData);
 
-function mostrarLogin() {
-  loginSection.style.display = 'block';
-  mainContent.style.display = 'none';
-  authHeader.style.display = 'none';
-}
+//   try {
+//     const resposta = await fetch(`${AUTH_URL}/login`, {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(payload),
+//     });
 
-// --- Funções de Usuários ---
+//     if (resposta.ok) {
+//       mostrarDashboard();
+//       carregarJogos();
+//     } else {
+//       const erro = await resposta.json();
+//       loginMensagem.textContent = erro.erro || "Falha ao entrar";
+//       loginMensagem.style.color = "#b42318";
+//     }
+//   } catch (err) {
+//     loginMensagem.textContent = "Erro de conexão";
+//   }
+// }
 
-function mostrarMensagem(texto, erro = false) {
-  mensagem.textContent = texto;
-  mensagem.style.color = erro ? '#b42318' : '#0b5b55';
-  setTimeout(() => { mensagem.textContent = ''; }, 3000);
-}
+// async function handleLogout() {
+//   await fetch(`${AUTH_URL}/logout`, { method: "POST" });
+//   mostrarLogin();
+// }
 
-function limparFormulario() {
-  idInput.value = '';
-  team_A_Input.value = '';
-  team_B_Input.value = '';
-}
+// function mostrarDashboard() {
+//   loginSection.style.display = "none";
+//   mainContent.style.display = "flex";
+//   authHeader.style.display = "block";
+//   loginForm.reset();
+//   loginMensagem.textContent = "";
+// }
 
-async function carregarJogos() {
-  try {
-    const resposta = await fetch(API_URL);
-    if (resposta.status === 401) return mostrarLogin();
-    
-    const jogos = await resposta.json();
-    tabela.innerHTML = '';
+// function mostrarLogin() {
+//   loginSection.style.display = "block";
+//   mainContent.style.display = "none";
+//   authHeader.style.display = "none";
+// }
 
-    jogos.forEach((game) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${game.id}</td>
-        <td>${game.team_A_id}</td>
-        <td>${game.team_B_id}</td>
-        <td>
-          <button class="acao" data-editar="${game.id}">Editar</button>
-          <button class="acao btn-excluir" data-excluir="${game.id}">Excluir</button>
-        </td>
-      `;
-      tabela.appendChild(tr);
-    });
-  } catch (err) {
-    console.error('Erro ao carregar:', err);
-  }
-}
+// // --- Funções de Usuários ---
 
-async function salvarJogo(event) {
-  event.preventDefault();
+// function mostrarMensagem(texto, erro = false) {
+//   mensagem.textContent = texto;
+//   mensagem.style.color = erro ? "#b42318" : "#0b5b55";
+//   setTimeout(() => {
+//     mensagem.textContent = "";
+//   }, 3000);
+// }
 
-  const id = idInput.value;
+// function limparFormulario() {
+//   idInput.value = "";
+//   team_A_Input.value = "";
+//   team_B_Input.value = "";
+// }
 
-  const payload = {
-    team_A: team_A_Input.value,
-    team_B: team_B_Input.value.trim()
-  };
+// async function carregarJogos() {
+//   try {
+//     const resposta = await fetch(API_URL);
+//     if (resposta.status === 401) return mostrarLogin();
 
-  const metodo = id ? 'PUT' : 'POST';
-  const url = id ? `${API_URL}/${id}` : API_URL;
+//     const jogos = await resposta.json();
+//     tabela.innerHTML = "";
 
-  const resposta = await fetch(url, {
-    method: metodo,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
+//     jogos.forEach((game) => {
+//       const tr = document.createElement("tr");
+//       tr.innerHTML = `
+//         <td>${game.id}</td>
+//         <td>${game.team_A_id}</td>
+//         <td>${game.team_B_id}</td>
+//         <td>
+//           <button class="acao" data-editar="${game.id}">Editar</button>
+//           <button class="acao btn-excluir" data-excluir="${game.id}">Excluir</button>
+//         </td>
+//       `;
+//       tabela.appendChild(tr);
+//     });
+//   } catch (err) {
+//     console.error("Erro ao carregar:", err);
+//   }
+// }
 
-  if (!resposta.ok) {
-    const erro = await resposta.json();
-    mostrarMensagem(erro.erro || 'Falha ao salvar', true);
-    return;
-  }
+// async function salvarJogo(event) {
+//   event.preventDefault();
 
-  mostrarMensagem(id ? 'Atualizado com sucesso' : 'Criado com sucesso');
-  limparFormulario();
-  carregarJogos();
-}
+//   const id = idInput.value;
 
-// --- Event Listeners ---
+//   const payload = {
+//     team_A: team_A_Input.value,
+//     team_B: team_B_Input.value.trim(),
+//   };
 
-loginForm.addEventListener('submit', handleLogin);
-usuarioForm.addEventListener('submit', salvarJogo);
+//   const metodo = id ? "PUT" : "POST";
+//   const url = id ? `${API_URL}/${id}` : API_URL;
 
-btnLogout.addEventListener('click', handleLogout);
-cancelarEdicaoBtn.addEventListener('click', () => {
-  limparFormulario();
-  mostrarMensagem('Edição cancelada');
-});
+//   const resposta = await fetch(url, {
+//     method: metodo,
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(payload),
+//   });
 
-tabela.addEventListener('click', async (event) => {
-  const editarId = event.target.getAttribute('data-editar');
-  const excluirId = event.target.getAttribute('data-excluir');
+//   if (!resposta.ok) {
+//     const erro = await resposta.json();
+//     mostrarMensagem(erro.erro || "Falha ao salvar", true);
+//     return;
+//   }
 
-  if (editarId) {
-    const resposta = await fetch(`${API_URL}/${editarId}`);
-    const u = await resposta.json();
-    idInput.value = u.id;
-    team_A_Input.value = u.team_A_id;
-    team_B_Input.value = u.team_B_id;
-  }
+//   mostrarMensagem(id ? "Atualizado com sucesso" : "Criado com sucesso");
+//   limparFormulario();
+//   carregarJogos();
+// }
 
-  if (excluirId) {
-    if (confirm('Deseja excluir?')) {
-      await fetch(`${API_URL}/${excluirId}`, { method: 'DELETE' });
-      carregarJogos();
-    }
-  }
-});
+// // --- Event Listeners ---
 
-// Inicialização
-document.addEventListener('DOMContentLoaded', async () => {
-    const resp = await fetch(API_URL);
-    if (resp.ok) {
-        mostrarDashboard();
-        carregarJogos();
-    } else {
-        mostrarLogin();
-    }
-});
+// loginForm.addEventListener("submit", handleLogin);
+// usuarioForm.addEventListener("submit", salvarJogo);
+
+// btnLogout.addEventListener("click", handleLogout);
+// cancelarEdicaoBtn.addEventListener("click", () => {
+//   limparFormulario();
+//   mostrarMensagem("Edição cancelada");
+// });
+
+btnNovoJogo.addEventListener("click", abrirModal);
+btnFechar.addEventListener("click", fecharModal);
+
+// tabela.addEventListener("click", async (event) => {
+//   const editarId = event.target.getAttribute("data-editar");
+//   const excluirId = event.target.getAttribute("data-excluir");
+
+//   if (editarId) {
+//     const resposta = await fetch(`${API_URL}/${editarId}`);
+//     const u = await resposta.json();
+//     idInput.value = u.id;
+//     team_A_Input.value = u.team_A_id;
+//     team_B_Input.value = u.team_B_id;
+//   }
+
+//   if (excluirId) {
+//     if (confirm("Deseja excluir?")) {
+//       await fetch(`${API_URL}/${excluirId}`, { method: "DELETE" });
+//       carregarJogos();
+//     }
+//   }
+// });
+
+// // Inicialização
+// document.addEventListener("DOMContentLoaded", async () => {
+//   const resp = await fetch(API_URL);
+//   if (resp.ok) {
+//     mostrarDashboard();
+//     carregarJogos();
+//   } else {
+//     mostrarLogin();
+//   }
+// });

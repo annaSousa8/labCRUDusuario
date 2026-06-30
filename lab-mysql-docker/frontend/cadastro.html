@@ -1,83 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="cadastro.css">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="cadastro.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header>
-        <nav class="navbar">
-            <div class="inicio">
-                <h1>
-                    <span style="color: var(--primary);">REF</span>BASKET
-                </h1>
-                    <ul>
-                        <li><a href="home.html">&lt; Voltar</a></li>
-                        <li>CADASTROS</li>
-                    </ul>
-            </div>
-            <div>
-                <ul>
-                    <li class="contorno ativo"><a href="cadastro.html">CADASTROS</a></li>
-                    <li class="contorno"><a href="tempo-real.html">TEMPO REAL</a></li>
-                </ul>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="inicio">
+          <h1><span style="color: var(--primary)">REF</span>BASKET</h1>
+          <ul>
+            <li><a href="index.html">&lt; Voltar</a></li>
+            <li>CADASTROS</li>
+          </ul>
+        </div>
+        <div>
+          <ul>
+            <li class="contorno ativo">
+              <a href="cadastro.html">CADASTROS</a>
+            </li>
+            <li class="contorno"><a href="tempo-real.html">TEMPO REAL</a></li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <main>
-        <div class="tabs">
-            <button class="tab ativo">JOGOS</button>
-            <a href="times.html"><button class="tab">TIMES</button></a>
-            <a href="jogadores.html"><button class="tab">JOGADORES</button></a>
-        </div>
+      <div class="tabs">
+        <button class="tab ativo">JOGOS</button>
+        <a href="times.html"><button class="tab">TIMES</button></a>
+        <a href="jogadores.html"><button class="tab">JOGADORES</button></a>
+      </div>
 
-        <div class="topo-pagina">
-            <h1>JOGOS</h1>
-            <button class="novo-jogo">+ Novo Jogo</button>
-        </div>
+      <div class="topo-pagina">
+        <h1>JOGOS</h1>
+        <button id="btn-novo-jogo" class="novo-jogo">+ Novo Jogo</button>
+      </div>
 
-        <div class="tabela-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>CONFRONTO</th>
-                        <th>DATA</th>
-                        <th>LOCAL</th>
-                        <th>STATUS</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    <tr>
-                        <td>Flamengo Basquete vs Bauru Basket</td>
-                        <td>25/06/2026</td>
-                        <td>Ginasio do Flamengo</td>
-                        <td>
-                            <span class="status agendado">Agendado</span>
-                        </td>
-                        <td>
-                            <div class="acoes">
-                                <i data-lucide="square-pen" class="editar"></i>
-                                <i data-lucide="trash-2" class="excluir"></i>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>CONFRONTO</th>
+              <th>DATA</th>
+              <th>LOCAL</th>
+              <th>STATUS</th>
+              <th></th>
+            </tr>
+          </thead>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+          <tbody>
+            <tr>
+              <td>Flamengo Basquete vs Bauru Basket</td>
+              <td>25/06/2026</td>
+              <td>Ginasio do Flamengo</td>
+              <td>
+                <span class="status agendado">Agendado</span>
+              </td>
+              <td>
+                <div class="acoes">
+                  <i data-lucide="square-pen" class="editar"></i>
+                  <i data-lucide="trash-2" class="excluir"></i>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <script src="https://unpkg.com/lucide@latest"></script>
+      <script>
         lucide.createIcons();
-    </script>  
+      </script>
     </main>
 
-      
-</body>
+    <div id="modal" class="modal-overlay">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>NOVO JOGO</h2>
+          <button id="btn-fechar" class="fechar">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="linha">
+            <div class="campo">
+              <label>TIME A</label>
+              <select>
+                <option>Flamengo Basquete</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>TIME B</label>
+              <select>
+                <option>Bauru Basket</option>
+              </select>
+            </div>
+          </div>
+          <div class="campo">
+            <label>DATA</label>
+            <input type="date" />
+          </div>
+          <div class="campo">
+            <label>LOCAL</label>
+            <input type="text" placeholder="Ex: Ginásio Municipal" />
+          </div>
+          <div class="campo">
+            <label>STATUS</label>
+            <select>
+              <option>Agendado</option>
+              <option>Em andamento</option>
+              <option>Finalizado</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancelar">Cancelar</button>
+          <button class="btn-salvar">Salvar</button>
+        </div>
+      </div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
 </html>

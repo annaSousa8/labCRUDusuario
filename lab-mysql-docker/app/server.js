@@ -3,6 +3,7 @@ const cors = require('cors');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const gamesRoutes = require('./routes/games');
+const teamsRoutes = require('./routes/teams');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.get('/health', (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/games', gamesRoutes);
+app.use('/teams', teamsRoutes);
 
 app.listen(3000, () => {
   console.log('API rodando na porta 3000');
