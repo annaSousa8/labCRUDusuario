@@ -184,7 +184,6 @@ h1{
     background: rgba(255,255,255,0.05);
 }
 
-/* Responsivo */
 
 @media (max-width: 768px){
 
@@ -209,5 +208,114 @@ h1{
     .controle-quartos{
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .painel-pontos{
+        grid-template-columns: 1fr;
+    }
+
+    .btn-ponto{
+        height: 60px;
+        font-size: 1.7rem;
+    }
+}
+
+.painel-pontos{
+    max-width: 1000px;
+    margin: 20px auto 40px auto;
+
+    display: flex;
+    gap: 20px;
+}
+
+.card-time{
+    flex: 1;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+}
+
+.time-a h2{
+    color: #ef4444;
+}
+
+.time-b h2{
+    color: #2563eb;
+}
+
+.card-time h2{
+    margin: 0 0 25px 0;
+
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.secao-pontos{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.secao-pontos span{
+    color: var(--muted-foreground);
+
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+
+    letter-spacing: 1px;
+}
+
+.botoes-pontos{
+    display: flex;
+    gap: 12px;
+}
+
+.btn-ponto{
+    flex: 1;
+
+    height: 70px;
+
+    background: transparent;
+
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    color: var(--foreground);
+
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.time-a .btn-ponto:hover{
+    background: rgba(239,68,68,.08);
+    border-color: #ef4444;
+}
+
+.time-b .btn-ponto:hover{
+    background: rgba(37,99,235,.08);
+    border-color: #2563eb;
+}
+
+@media (max-width: 768px){
+
+    .painel-pontos{
+        flex-direction: column;
+    }
+
+    .btn-ponto{
+        height: 60px;
+        font-size: 1.7rem;
     }
 }

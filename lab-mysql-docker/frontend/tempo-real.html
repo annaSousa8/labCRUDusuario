@@ -1,79 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="global.css">
-    <link rel="stylesheet" href="tempo-real.css">
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tempo Real</title>
+
+    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="tempo-real.css" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
     <header>
-        <nav class="navbar">
-            <div class="inicio">
-                <h1>
-                    <span style="color: var(--primary);">REF</span>BASKET
-                </h1>
-                    <ul>
-                        <li><a href="index.html">&lt; Voltar</a></li>
-                        <li>JOGO EM TEMPO REAL</li>
-                    </ul>
-            </div>
-            <div>
-                <ul>
-                    <li class="contorno"><a href="cadastro.html">CADASTROS</a></li>
-                    <li class="contorno ativo"><a href="tempo-real.html">TEMPO REAL</a></li>
-                </ul>
-            </div>
-        </nav>
+      <nav class="navbar">
+        <div class="inicio">
+          <h1><span style="color: var(--primary)">REF</span>BASKET</h1>
+
+          <ul>
+            <li><a href="index.html">&lt; Voltar</a></li>
+            <li>JOGO EM TEMPO REAL</li>
+          </ul>
+        </div>
+
+        <div>
+          <ul>
+            <li class="contorno">
+              <a href="cadastro.html">CADASTROS</a>
+            </li>
+
+            <li class="contorno ativo">
+              <a href="tempo-real.html">TEMPO REAL</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
     </header>
 
     <div class="placar">
-    <div class="controle-quartos">
+      <div class="controle-quartos">
         <button class="quarto ativo">1º</button>
         <button class="quarto">2º</button>
         <button class="quarto">3º</button>
         <button class="quarto">4º</button>
-        <span>|</span>
-        <button class="proximo-quarto">
-            Próximo Quarto ->
-        </button>
-    </div>
 
-    <div class="painel-jogo">
+        <span>|</span>
+
+        <button id="btn-proximo-quarto" class="proximo-quarto">Próximo Quarto →</button>
+      </div>
+
+      <div class="painel-jogo">
         <div class="time casa">
-            <h3>FLAMENGO BASQUETE</h3>
-            <div class="pontos pontos-vermelho">
-                00
-            </div>
-            <span class="faltas">0 faltas</span>
+          <div id="pontos-time-a" class="pontos pontos-vermelho">00</div>
+
+          <span class="faltas"> 0 faltas </span>
         </div>
 
         <div class="centro">
-            <div id="cronometro">
-                10:00
-            </div>
-            <div class="acoes">
-                <button id="btnIniciar">
-                    ▶ Iniciar
-                </button>
-                <button id="btnReset">
-                    ↺
-                </button>
-            </div>
+          <div id="cronometro">10:00</div>
+
+          <div class="acoes">
+            <button id="btnIniciar">▶ Iniciar</button>
+
+            <button id="btnReset">↺</button>
+          </div>
         </div>
 
         <div class="time visitante">
-            <h3>BAURU BASKET</h3>
-            <div class="pontos pontos-azul">
-                04
-            </div>
-            <span class="faltas">0 faltas</span>
-        </div>
+          <div id="pontos-time-b" class="pontos pontos-azul">00</div>
 
+          <span class="faltas"> 0 faltas </span>
+        </div>
+      </div>
     </div>
 
-</div>
-</body>
+    <div class="painel-pontos">
+      <div class="card-time time-a">
+        <h2>TIME A</h2>
+
+        <div class="secao-pontos">
+          <span>PONTUAÇÃO</span>
+
+          <div class="botoes-pontos">
+            <button class="btn-ponto" data-time="a" data-pontos="1">+1</button>
+            <button class="btn-ponto" data-time="a" data-pontos="2">+2</button>
+            <button class="btn-ponto" data-time="a" data-pontos="3">+3</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-time time-b">
+        <h2>TIME B</h2>
+
+        <div class="secao-pontos">
+          <span>PONTUAÇÃO</span>
+
+          <div class="botoes-pontos">
+            <button class="btn-ponto" data-time="b" data-pontos="1">+1</button>
+            <button class="btn-ponto" data-time="b" data-pontos="2">+2</button>
+            <button class="btn-ponto" data-time="b" data-pontos="3">+3</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="tempo-real.js"></script>
+  </body>
 </html>
