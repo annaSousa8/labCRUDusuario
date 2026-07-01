@@ -6,6 +6,7 @@ const modal = document.getElementById("modal");
 const btnFechar = document.getElementById("btn-fechar");
 const btnSalvarTime = document.getElementById("btn-salvar-time");
 const nomeTime = document.getElementById("nome-time");
+const btnCancelar = document.querySelector(".btn-cancelar");
 
 let editandoId = null;
 
@@ -143,10 +144,9 @@ tabela.addEventListener("click", async (event) => {
 });
 
 btnNovoTime.addEventListener("click", abrirModal);
-
 btnFechar.addEventListener("click", fecharModal);
-
 btnSalvarTime.addEventListener("click", salvarTime);
+btnCancelar.addEventListener("click", fecharModal);
 
 document.addEventListener("DOMContentLoaded", () => {
   carregarTimes();
