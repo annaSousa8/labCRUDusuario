@@ -1,4 +1,4 @@
-// Configurações
+let editandoId = null;
 const API_URL = "/api/games";
 const AUTH_URL = "/api/auth";
 
@@ -19,15 +19,143 @@ const AUTH_URL = "/api/auth";
 const btnNovoJogo = document.getElementById("btn-novo-jogo");
 const modal = document.getElementById("modal");
 const btnFechar = document.getElementById("btn-fechar");
+const selectTeamA = document.getElementById("team-a");
+const selectTeamB = document.getElementById("team-b");
+const btnSalvarJogo = document.getElementById("btn-salvar-jogo");
+const tabelaJogos = document.getElementById("tabela-jogos");
+const btnCancelar = document.querySelector(".btn-cancelar");
 
 // --- Funções de Autenticação ---
 
-function abrirModal() {
+async function abrirModal() {
+  await carregarTimes();
   modal.classList.add("ativo");
 }
 
 function fecharModal() {
   modal.classList.remove("ativo");
+
+  selectTeamA.value = "";
+  selectTeamB.value = "";
+
+  editandoId = null;
+}
+
+async function carregarTimes() {
+  try {
+    const resposta = await fetch("/api/teams");
+
+    const times = await resposta.json();
+
+    selectTeamA.innerHTML = '<option value="">Selecione</option>';
+
+    selectTeamB.innerHTML = '<option value="">Selecione</option>';
+
+    times.forEach((time) => {
+      selectTeamA.innerHTML += `
+        <option value="${time.id}">
+          ${time.name}
+        </option>
+      `;
+
+      selectTeamB.innerHTML += `
+        <option value="${time.id}">
+          ${time.name}
+        </option>
+      `;
+    });
+  } catch (erro) {
+    console.error("Erro ao carregar times:", erro);
+  }
+}
+
+async function salvarJogo() {
+  const team_A_id = selectTeamA.value;
+  const team_B_id = selectTeamB.value;
+
+  if (!team_A_id || !team_B_id) {
+    alert("Selecione os dois times");
+    return;
+  }
+
+  if (team_A_id === team_B_id) {
+    alert("Os times devem ser diferentes");
+    return;
+  }
+
+  const payload = {
+    team_A: team_A_id,
+    team_B: team_B_id,
+  };
+
+  const metodo = editandoId ? "PUT" : "POST";
+
+  const url = editandoId ? `/api/games/${editandoId}` : "/api/games";
+
+  const resposta = await fetch(url, {
+    method: metodo,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (resposta.ok) {
+    fecharModal();
+
+    selectTeamA.value = "";
+    selectTeamB.value = "";
+
+    editandoId = null;
+
+    carregarJogos();
+  } else {
+    alert("Erro ao salvar jogo");
+  }
+}
+
+async function carregarJogos() {
+  try {
+    const resposta = await fetch("/api/games");
+
+    const jogos = await resposta.json();
+
+    tabelaJogos.innerHTML = "";
+
+    jogos.forEach((jogo) => {
+      tabelaJogos.innerHTML += `
+        <tr>
+          <td>
+            ${jogo.team_A_name}
+            x
+            ${jogo.team_B_name}
+          </td>
+
+          <td>
+            <div class="acoes">
+
+              <i
+                data-lucide="square-pen"
+                class="editar"
+                data-id="${jogo.id}">
+              </i>
+
+              <i
+                data-lucide="trash-2"
+                class="excluir"
+                data-id="${jogo.id}">
+              </i>
+
+            </div>
+          </td>
+        </tr>
+      `;
+    });
+
+    lucide.createIcons();
+  } catch (erro) {
+    console.error("Erro ao carregar jogos:", erro);
+  }
 }
 
 // async function handleLogin(event) {
@@ -84,109 +212,76 @@ function fecharModal() {
 //   }, 3000);
 // }
 
-// function limparFormulario() {
-//   idInput.value = "";
-//   team_A_Input.value = "";
-//   team_B_Input.value = "";
-// }
-
-// async function carregarJogos() {
-//   try {
-//     const resposta = await fetch(API_URL);
-//     if (resposta.status === 401) return mostrarLogin();
-
-//     const jogos = await resposta.json();
-//     tabela.innerHTML = "";
-
-//     jogos.forEach((game) => {
-//       const tr = document.createElement("tr");
-//       tr.innerHTML = `
-//         <td>${game.id}</td>
-//         <td>${game.team_A_id}</td>
-//         <td>${game.team_B_id}</td>
-//         <td>
-//           <button class="acao" data-editar="${game.id}">Editar</button>
-//           <button class="acao btn-excluir" data-excluir="${game.id}">Excluir</button>
-//         </td>
-//       `;
-//       tabela.appendChild(tr);
-//     });
-//   } catch (err) {
-//     console.error("Erro ao carregar:", err);
-//   }
-// }
-
-// async function salvarJogo(event) {
-//   event.preventDefault();
-
-//   const id = idInput.value;
-
-//   const payload = {
-//     team_A: team_A_Input.value,
-//     team_B: team_B_Input.value.trim(),
-//   };
-
-//   const metodo = id ? "PUT" : "POST";
-//   const url = id ? `${API_URL}/${id}` : API_URL;
-
-//   const resposta = await fetch(url, {
-//     method: metodo,
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(payload),
-//   });
-
-//   if (!resposta.ok) {
-//     const erro = await resposta.json();
-//     mostrarMensagem(erro.erro || "Falha ao salvar", true);
-//     return;
-//   }
-
-//   mostrarMensagem(id ? "Atualizado com sucesso" : "Criado com sucesso");
-//   limparFormulario();
-//   carregarJogos();
-// }
-
-// // --- Event Listeners ---
-
-// loginForm.addEventListener("submit", handleLogin);
-// usuarioForm.addEventListener("submit", salvarJogo);
-
-// btnLogout.addEventListener("click", handleLogout);
-// cancelarEdicaoBtn.addEventListener("click", () => {
-//   limparFormulario();
-//   mostrarMensagem("Edição cancelada");
-// });
-
 btnNovoJogo.addEventListener("click", abrirModal);
 btnFechar.addEventListener("click", fecharModal);
+btnSalvarJogo.addEventListener("click", salvarJogo);
+btnCancelar.addEventListener("click", fecharModal);
 
-// tabela.addEventListener("click", async (event) => {
-//   const editarId = event.target.getAttribute("data-editar");
-//   const excluirId = event.target.getAttribute("data-excluir");
+document.addEventListener("DOMContentLoaded", () => {
+  carregarTimes();
+});
 
-//   if (editarId) {
-//     const resposta = await fetch(`${API_URL}/${editarId}`);
-//     const u = await resposta.json();
-//     idInput.value = u.id;
-//     team_A_Input.value = u.team_A_id;
-//     team_B_Input.value = u.team_B_id;
-//   }
+document.addEventListener("DOMContentLoaded", () => {
+  carregarJogos();
+});
 
-//   if (excluirId) {
-//     if (confirm("Deseja excluir?")) {
-//       await fetch(`${API_URL}/${excluirId}`, { method: "DELETE" });
-//       carregarJogos();
-//     }
-//   }
-// });
+tabelaJogos.addEventListener(
+  "click",
+  async (event) => {
 
-// // Inicialização
-// document.addEventListener("DOMContentLoaded", async () => {
-//   const resp = await fetch(API_URL);
-//   if (resp.ok) {
-//     mostrarDashboard();
-//     carregarJogos();
-//   } else {
-//     mostrarLogin();
-//   }
-// });
+    const excluir =
+      event.target.closest(".excluir");
+
+    if (!excluir) return;
+
+    const id = excluir.dataset.id;
+
+    const confirmar = confirm(
+      "Deseja excluir este jogo?"
+    );
+
+    if (!confirmar) return;
+
+    const resposta = await fetch(
+      `/api/games/${id}`,
+      {
+        method: "DELETE"
+      }
+    );
+
+    if (resposta.ok) {
+      carregarJogos();
+    } else {
+      alert("Erro ao excluir jogo");
+    }
+  }
+);
+
+tabelaJogos.addEventListener(
+  "click",
+  async (event) => {
+
+    const editar =
+      event.target.closest(".editar");
+
+    if (!editar) return;
+
+    const id = editar.dataset.id;
+
+    const resposta =
+      await fetch(`/api/games/${id}`);
+
+    const jogo =
+      await resposta.json();
+
+    selectTeamA.value =
+      jogo.team_A_id;
+
+    selectTeamB.value =
+      jogo.team_B_id;
+
+    editandoId = id;
+
+    abrirModal();
+  }
+);

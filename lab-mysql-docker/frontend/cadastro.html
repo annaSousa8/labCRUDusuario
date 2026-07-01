@@ -49,29 +49,11 @@
           <thead>
             <tr>
               <th>CONFRONTO</th>
-              <th>DATA</th>
-              <th>LOCAL</th>
-              <th>STATUS</th>
               <th></th>
             </tr>
           </thead>
 
-          <tbody>
-            <tr>
-              <td>Flamengo Basquete vs Bauru Basket</td>
-              <td>25/06/2026</td>
-              <td>Ginasio do Flamengo</td>
-              <td>
-                <span class="status agendado">Agendado</span>
-              </td>
-              <td>
-                <div class="acoes">
-                  <i data-lucide="square-pen" class="editar"></i>
-                  <i data-lucide="trash-2" class="excluir"></i>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="tabela-jogos"></tbody>
         </table>
       </div>
 
@@ -91,40 +73,21 @@
           <div class="linha">
             <div class="campo">
               <label>TIME A</label>
-              <select>
-                <option>Flamengo Basquete</option>
-              </select>
+              <select id="team-a"></select>
             </div>
             <div class="campo">
               <label>TIME B</label>
-              <select>
-                <option>Bauru Basket</option>
-              </select>
+              <select id="team-b"></select>
             </div>
-          </div>
-          <div class="campo">
-            <label>DATA</label>
-            <input type="date" />
-          </div>
-          <div class="campo">
-            <label>LOCAL</label>
-            <input type="text" placeholder="Ex: Ginásio Municipal" />
-          </div>
-          <div class="campo">
-            <label>STATUS</label>
-            <select>
-              <option>Agendado</option>
-              <option>Em andamento</option>
-              <option>Finalizado</option>
-            </select>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn-cancelar">Cancelar</button>
-          <button class="btn-salvar">Salvar</button>
+          <button id="btn-cancelar" class="btn-cancelar">Cancelar</button>
+          <button id="btn-salvar-jogo" class="btn-salvar">Salvar</button>
         </div>
       </div>
     </div>
+    
     <script src="./app.js"></script>
   </body>
 </html>
